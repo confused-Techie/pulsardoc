@@ -1,0 +1,3 @@
+[submodule "atomdoc"]
+	path = atomdoc
+	url = https://github.com/pulsar-edit/atomdoc

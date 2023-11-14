@@ -8,8 +8,5 @@
   },
   "keywords": [],
   "author": "confused-Techie",
-  "license": "MIT",
-  "dependencies": {
-    "atomdoc": "github:pulsar-edit/atomdoc"
-  }
+  "license": "MIT"
 }

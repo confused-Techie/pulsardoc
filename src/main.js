@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const util = require("util");
-const atomdoc = require("atomdoc");
+const atomdoc = require("../atomdoc");
 const parseArgs = require("./parseArgs.js");
 
 module.exports =
@@ -74,7 +74,7 @@ async function main(args) {
 
   for (let i = 0; i < eligibleComments.length; i++) {
     for (let y = 0; y < eligibleComments[i].comments.length; y++) {
-      let doc = atomdoc.parse(eligibleComments[i].comments[y]);
+      let doc = parseDoc(eligibleComments[i].comments[y]);
       if (doc) {
         eligibleComments[i].parsedDocs.push(doc);
       }
@@ -98,6 +98,45 @@ async function main(args) {
   }
 
   console.log("Successfully parsed data!");
+}
+
+function parseDoc(content) {
+  // This serves as a small wrapper around atomdoc, so that we can easily expand
+  // it's support of different items, without having to delve into the regex
+  // and more complicated functionality of the module itself
+
+  // So first lets look for our supported items, and extract them from the text
+  // if found.
+
+  let name, type;
+  let contentLines = content.split("\n");
+  let idx = contentLines.length;
+
+  while (idx--) {
+    if (contentLines[idx].trim().startsWith("# Name: ")) {
+      name = contentLines[idx].trim().replace("# Name: ", "");
+      contentLines.splice(idx, 1);
+    } else if (contentLines[idx].trim().startsWith("# Type: ")) {
+      type = contentLines[idx].trim().replace("# Type: ", "");
+      contentLines.splice(idx, 1);
+    }
+  }
+
+  let contentAfter = contentLines.join("\n");
+
+  let doc = atomdoc.parse(contentAfter);
+  if (doc) {
+    if (typeof name === "string") {
+      doc.name = name;
+    }
+    if (typeof type === "string") {
+      doc.type = type;
+    }
+
+    return doc;
+  } else {
+    return null;
+  }
 }
 
 async function enumerateFiles(dir, pathArray, fileCallback) {

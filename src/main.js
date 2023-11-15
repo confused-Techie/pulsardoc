@@ -152,7 +152,10 @@ function parseDoc(content) {
     } else if (contentLines[idx].trim().startsWith("# Type: ")) {
       type = contentLines[idx].trim().replace("# Type: ", "");
       contentLines.splice(idx, 1);
-    } else if (contentLines[idx].trim().startsWith("# Section: ")) {
+    } else if (contentLines[idx].trim().startsWith("# Section: ") && typeof sectionName !== "string") {
+      // Checking the current value prevents us from overriding the section.
+      // Say if a section is defined above this function, but the function docs
+      // themselves already define their own section.
       sectionName = contentLines[idx].trim().replace("# Section: ", "");
       contentLines.splice(idx, 1);
     } else if (contentLines[idx].trim().startsWith("# SuperClass: ")) {

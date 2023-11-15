@@ -5,8 +5,9 @@ module.exports =
 function parseArgs(args) {
   let dir;
   let verbose = false;
-  let output = "cmd";
-  const validOutputs = [ "cmd", "html", "markdown", "json" ];
+  let format = "cmd";
+  let outputDir;
+  const validFormats = [ "cmd", "html", "markdown", "json" ];
 
   if (args.length === 0) {
     // No directory was passed. So we will use the current working directory
@@ -33,22 +34,28 @@ function parseArgs(args) {
   // Now we can parse all other args
   for (let i = 0; i < args.length; i++) {
     if (args[i].startsWith("-")) {
-      switch(args[i]) {
+      let argsParts = args[i].split("=");
+      // Only actually required if there's a value here, which not everything has
+      switch(argsParts[0]) {
         case "--verbose":
         case "-v":
           verbose = true;
           break;
-        case "--output":
-        case "-o":
-          let outputParts = args[i].split("=");
-          if (!validOutputs.includes(outputParts[1])) {
-            // The provided output object isn't valid, default
-            output = "cmd";
+        case "--format":
+        case "-f":
+          if (!validFormats.includes(argsParts[1])) {
+            // The provided format object isn't valid, default
+            format = "cmd";
           } else {
-            // The output provided is valid
-            output = outputParts[1];
+            // The format provided is valid
+            format = argsParts[1];
           }
           break;
+        case "--output":
+        case "-o":
+          if (typeof argsParts[1] === "string") {
+            outputDir = path.resolve(argsParts[1]);
+          }
       }
     }
   }
@@ -56,6 +63,7 @@ function parseArgs(args) {
   return {
     directory: dir,
     verbose: verbose,
-    output: output
+    format: format,
+    outputDir: outputDir ?? process.cwd()
   };
 }

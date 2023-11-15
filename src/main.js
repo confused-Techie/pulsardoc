@@ -4,6 +4,8 @@ const util = require("util");
 const atomdoc = require("../atomdoc");
 const structureDocs = require("./structureDocs.js");
 const parseArgs = require("./parseArgs.js");
+const outputMarkdown = require("./outputs/markdown.js");
+const outputJSON = require("./outputs/json.js");
 
 module.exports =
 async function main(args) {
@@ -120,13 +122,14 @@ async function main(args) {
   }
 
   // Now with our json documentation data, we can output this as whatever we want.
-  if (opts.output === "markdown") {
-
-  } else if (opts.output === "html") {
-
-  } else if (opts.output === "json") {
-
-  } else if (opts.output === "cmd") {
+  if (opts.format === "markdown") {
+    await outputMarkdown(opts, structuredDocs);
+  } else if (opts.format === "html") {
+    console.error("Formatted HTML is not yet supported!");
+    process.exit(1);
+  } else if (opts.format === "json") {
+    await outputJSON(opts, structuredDocs);
+  } else if (opts.format === "cmd") {
     console.log(util.inspect(structuredDocs, { depth: null }));
   }
 

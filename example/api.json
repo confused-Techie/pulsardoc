@@ -1,0 +1,131 @@
+{
+  "Clipboard": {
+    "name": "Clipboard",
+    "visibility": "Extended",
+    "summary": "Represents the clipboard used for copying and pasting in Pulsar.",
+    "description": "Represents the clipboard used for copying and pasting in Pulsar.\n\n An instance of this class is always available as the `atom.clipboard` global.",
+    "classMethods": [],
+    "instanceMethods": [
+      {
+        "name": "md5",
+        "visibility": "Private",
+        "summary": " Creates an `md5` hash of some text.",
+        "description": " Creates an `md5` hash of some text.",
+        "sectionName": "Decoration Details",
+        "arguments": [
+          {
+            "children": [
+              {
+                "name": "scopeDescriptor",
+                "description": "THe {ScopeDescriptor} with which the value is associated",
+                "type": "ScopeDescriptor",
+                "isOptional": false
+              },
+              {
+                "name": "value",
+                "description": "THe value for the key-path",
+                "type": null,
+                "isOptional": false
+              }
+            ],
+            "name": "text",
+            "description": "A {String} to hash. Returns a hashed {String}.",
+            "type": "String",
+            "isOptional": false
+          }
+        ],
+        "returnValues": []
+      },
+      {
+        "name": "write",
+        "visibility": "Public",
+        "summary": "Write the given text to the clipboard.",
+        "description": "Write the given text to the clipboard.\n\n The metadata associated with the text is available by calling\n {::readWithMetadata}.",
+        "sectionName": "Decoration Details",
+        "arguments": [
+          {
+            "name": "text",
+            "description": "The {String} to store.",
+            "type": "String",
+            "isOptional": false
+          }
+        ],
+        "returnValues": []
+      },
+      {
+        "name": "read",
+        "visibility": "Public",
+        "summary": "Read the text from the clipboard.",
+        "description": "Read the text from the clipboard.",
+        "sectionName": "Decoration Details",
+        "arguments": [],
+        "returnValues": [
+          {
+            "type": "String",
+            "description": "Returns a {String}."
+          }
+        ]
+      },
+      {
+        "name": "writeFindText",
+        "visibility": "Public",
+        "summary": "Write the given text to the macOS find pasteboard",
+        "description": "Write the given text to the macOS find pasteboard",
+        "sectionName": "Decoration Details",
+        "arguments": [],
+        "returnValues": []
+      },
+      {
+        "name": "readFindText",
+        "visibility": "Public",
+        "summary": "Read the text from the macOS find pasteboard.",
+        "description": "Read the text from the macOS find pasteboard.",
+        "sectionName": "Decoration Details",
+        "arguments": [],
+        "returnValues": [
+          {
+            "type": "String",
+            "description": "Returns a {String}."
+          }
+        ]
+      },
+      {
+        "name": "readWithMetadata",
+        "visibility": "Public",
+        "summary": "Read the text from the clipboard and return both the text and the\n associated metadata.",
+        "description": "Read the text from the clipboard and return both the text and the\n associated metadata.",
+        "sectionName": "Hello Friend",
+        "arguments": [],
+        "returnValues": [
+          {
+            "type": "Object",
+            "description": "Returns an {Object} with the following keys:\n\n* `text` The {String} clipboard text.\n* `metadata` The metadata stored by an earlier call to {::write}"
+          }
+        ]
+      }
+    ],
+    "instanceProperties": [
+      {
+        "name": "clipboard",
+        "summary": "A {Clipboard} instance.",
+        "description": "A {Clipboard} instance.",
+        "visibility": "Public"
+      }
+    ],
+    "classProperties": [],
+    "sections": [
+      "Decoration Details",
+      "Hello Friend"
+    ],
+    "examples": [
+      {
+        "description": "",
+        "lang": "js",
+        "code": " atom.clipboard.write('hello')\n\n console.log(atom.clipboard.read()) // 'hello'",
+        "raw": "```js\n atom.clipboard.write('hello')\n\n console.log(atom.clipboard.read()) // 'hello'\n```"
+      }
+    ],
+    "filename": "example.js",
+    "filepath": "D:\\Personal Documents\\GitHub Repositories\\pulsar-edit\\pulsardoc\\example\\example.js"
+  }
+}

@@ -1,0 +1,464 @@
+{
+  "files": {
+    "C:\\Users\\anmalis\\Documents\\GitHub\\pulsar-documentation-eleventy\\pulsar\\src\\color.js": {
+      "objects": {
+        "4": {
+          "17": {
+            "type": "class",
+            "name": "Color",
+            "superClass": null,
+            "bindingType": "exports",
+            "classProperties": [
+              [
+                13,
+                2
+              ]
+            ],
+            "prototypeProperties": [
+              [
+                45,
+                2
+              ],
+              [
+                52,
+                2
+              ],
+              [
+                56,
+                2
+              ],
+              [
+                60,
+                2
+              ],
+              [
+                64,
+                2
+              ],
+              [
+                68,
+                2
+              ],
+              [
+                72,
+                2
+              ],
+              [
+                76,
+                2
+              ],
+              [
+                80,
+                2
+              ],
+              [
+                85,
+                2
+              ],
+              [
+                92,
+                2
+              ],
+              [
+                96,
+                2
+              ],
+              [
+                100,
+                2
+              ],
+              [
+                104,
+                2
+              ],
+              [
+                125,
+                2
+              ]
+            ],
+            "doc": "Essential: A simple color class returned from {Config::get} when the value\nat the key path is of type 'color'.",
+            "range": [
+              [
+                4,
+                17
+              ],
+              [
+                128,
+                1
+              ]
+            ]
+          }
+        },
+        "13": {
+          "2": {
+            "type": "function",
+            "name": "parse",
+            "doc": "Essential: Parse a {String} or {Object} into a {Color}.\n\n* `value` A {String} such as `'white'`, `#ff00ff`, or\n  `'rgba(255, 15, 60, .75)'` or an {Object} with `red`, `green`, `blue`,\n  and `alpha` properties.\n\nReturns a {Color} or `null` if it cannot be parsed.\n@name Color",
+            "bindingType": "classProperty",
+            "paramNames": [
+              "value"
+            ],
+            "range": [
+              [
+                13,
+                2
+              ],
+              [
+                43,
+                3
+              ]
+            ]
+          }
+        },
+        "45": {
+          "2": {
+            "type": "function",
+            "name": "constructor",
+            "bindingType": "prototypeProperty",
+            "paramNames": [
+              "red",
+              "green",
+              "blue",
+              "alpha"
+            ],
+            "range": [
+              [
+                45,
+                2
+              ],
+              [
+                50,
+                3
+              ]
+            ]
+          }
+        },
+        "52": {
+          "2": {
+            "type": "function",
+            "name": "red",
+            "bindingType": "prototypeProperty",
+            "paramNames": [
+              "red"
+            ],
+            "range": [
+              [
+                52,
+                2
+              ],
+              [
+                54,
+                3
+              ]
+            ]
+          }
+        },
+        "56": {
+          "2": {
+            "type": "function",
+            "name": "green",
+            "bindingType": "prototypeProperty",
+            "paramNames": [
+              "green"
+            ],
+            "range": [
+              [
+                56,
+                2
+              ],
+              [
+                58,
+                3
+              ]
+            ]
+          }
+        },
+        "60": {
+          "2": {
+            "type": "function",
+            "name": "blue",
+            "bindingType": "prototypeProperty",
+            "paramNames": [
+              "blue"
+            ],
+            "range": [
+              [
+                60,
+                2
+              ],
+              [
+                62,
+                3
+              ]
+            ]
+          }
+        },
+        "64": {
+          "2": {
+            "type": "function",
+            "name": "alpha",
+            "bindingType": "prototypeProperty",
+            "paramNames": [
+              "alpha"
+            ],
+            "range": [
+              [
+                64,
+                2
+              ],
+              [
+                66,
+                3
+              ]
+            ]
+          }
+        },
+        "68": {
+          "2": {
+            "type": "function",
+            "name": "red",
+            "bindingType": "prototypeProperty",
+            "paramNames": [],
+            "range": [
+              [
+                68,
+                2
+              ],
+              [
+                70,
+                3
+              ]
+            ]
+          }
+        },
+        "72": {
+          "2": {
+            "type": "function",
+            "name": "green",
+            "bindingType": "prototypeProperty",
+            "paramNames": [],
+            "range": [
+              [
+                72,
+                2
+              ],
+              [
+                74,
+                3
+              ]
+            ]
+          }
+        },
+        "76": {
+          "2": {
+            "type": "function",
+            "name": "blue",
+            "bindingType": "prototypeProperty",
+            "paramNames": [],
+            "range": [
+              [
+                76,
+                2
+              ],
+              [
+                78,
+                3
+              ]
+            ]
+          }
+        },
+        "80": {
+          "2": {
+            "type": "function",
+            "name": "alpha",
+            "bindingType": "prototypeProperty",
+            "paramNames": [],
+            "range": [
+              [
+                80,
+                2
+              ],
+              [
+                82,
+                3
+              ]
+            ]
+          }
+        },
+        "85": {
+          "2": {
+            "type": "function",
+            "name": "toHexString",
+            "doc": "Essential: Returns a {String} in the form `'#abcdef'`.",
+            "bindingType": "prototypeProperty",
+            "paramNames": [],
+            "range": [
+              [
+                85,
+                2
+              ],
+              [
+                89,
+                3
+              ]
+            ]
+          }
+        },
+        "92": {
+          "2": {
+            "type": "function",
+            "name": "toRGBAString",
+            "doc": "Essential: Returns a {String} in the form `'rgba(25, 50, 75, .9)'`.",
+            "bindingType": "prototypeProperty",
+            "paramNames": [],
+            "range": [
+              [
+                92,
+                2
+              ],
+              [
+                94,
+                3
+              ]
+            ]
+          }
+        },
+        "96": {
+          "2": {
+            "type": "function",
+            "name": "toJSON",
+            "bindingType": "prototypeProperty",
+            "paramNames": [],
+            "range": [
+              [
+                96,
+                2
+              ],
+              [
+                98,
+                3
+              ]
+            ]
+          }
+        },
+        "100": {
+          "2": {
+            "type": "function",
+            "name": "toString",
+            "bindingType": "prototypeProperty",
+            "paramNames": [],
+            "range": [
+              [
+                100,
+                2
+              ],
+              [
+                102,
+                3
+              ]
+            ]
+          }
+        },
+        "104": {
+          "2": {
+            "type": "function",
+            "name": "isEqual",
+            "bindingType": "prototypeProperty",
+            "paramNames": [
+              "color"
+            ],
+            "range": [
+              [
+                104,
+                2
+              ],
+              [
+                123,
+                3
+              ]
+            ]
+          }
+        },
+        "125": {
+          "2": {
+            "type": "function",
+            "name": "clone",
+            "bindingType": "prototypeProperty",
+            "paramNames": [],
+            "range": [
+              [
+                125,
+                2
+              ],
+              [
+                127,
+                3
+              ]
+            ]
+          }
+        },
+        "130": {
+          "0": {
+            "type": "function",
+            "name": "parseColor",
+            "paramNames": [
+              "colorString"
+            ],
+            "bindingType": "variable",
+            "range": [
+              [
+                130,
+                0
+              ],
+              [
+                133,
+                1
+              ]
+            ]
+          }
+        },
+        "135": {
+          "0": {
+            "type": "function",
+            "name": "parseAlpha",
+            "paramNames": [
+              "alphaString"
+            ],
+            "bindingType": "variable",
+            "range": [
+              [
+                135,
+                0
+              ],
+              [
+                138,
+                1
+              ]
+            ]
+          }
+        },
+        "140": {
+          "0": {
+            "type": "function",
+            "name": "numberToHexString",
+            "paramNames": [
+              "number"
+            ],
+            "bindingType": "variable",
+            "range": [
+              [
+                140,
+                0
+              ],
+              [
+                143,
+                1
+              ]
+            ]
+          }
+        }
+      },
+      "exports": 4
+    }
+  }
+}

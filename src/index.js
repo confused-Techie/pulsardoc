@@ -12,7 +12,8 @@ class PulsarDoc {
     this.paths = paths;
     this.userOpts = opts;
     this.defaultOpts = {
-      warn_on_unrecognized_file: false
+      warn_on_unrecognized_file: false,
+      write_temp_files: false
     };
     this.opts = {
       ...this.defaultOpts,
@@ -24,13 +25,15 @@ class PulsarDoc {
   main() {
     let parsed = this.parse();
 
-    //fs.writeFileSync("parsed.json", JSON.stringify(parsed, null, 2), { encoding: "utf8" });
-
     let digested = this.digest([parsed]);
 
-    //fs.writeFileSync("digested.json", JSON.stringify(digested, null, 2), { encoding: "utf8" });
-
     let jsdocified = this.consumeJSDoc(digested);
+
+    if (this.opts.write_temp_files) {
+      fs.writeFileSync("parsed.json", JSON.stringify(parsed, null, 2), { encoding: "utf8" });
+      fs.writeFileSync("digested.json", JSON.stringify(digested, null, 2), { encoding: "utf8" });
+      fs.writeFileSync("jsdocified.json", JSON.stringify(jsdocified, null, 2), { encoding: "utf8" });
+    }
 
     return jsdocified;
   }
@@ -93,7 +96,8 @@ class PulsarDoc {
 
   // Parse documentation data from CoffeeScript files
   parseCoffee() {
-
+    console.error("CoffeeScript is not yet supported!");
+    return {};
   }
 
   // Digest documentation data into final output

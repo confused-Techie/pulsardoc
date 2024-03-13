@@ -26,6 +26,20 @@ The goal of `pulsardoc` is to achieve this again, but with some important change
 While Atom's Documentation system was born of a want to document code using Markdown, this one should continue this and expand on it.
 Bringing JSDoc features to the schema these tools expect, so they can continue to be used with existing tool-chains.
 
+## Usage
+
+To use:
+
+```js
+const opts = {
+  // Currently displaying defaults
+  warn_on_unrecognized_file: false, // warn if we encounter a file extension that we won't/can't handle
+  write_temp_files: false // write temp files to disk: parsed.json, digested.json, jsdocified.json
+};
+
+const docs = new PulsarDoc([ "path/one", "path/two" ], opts).main();
+```
+
 ## Documentation
 
 ### AtomDoc

@@ -84,3 +84,11 @@ Maps to the `description` property.
 ```js
 // @description A Description String.
 ```
+
+### Parameter
+
+Maps to the `arguments` property.
+
+```js
+// @param {string} [somebody] - Somebody's name.
+```

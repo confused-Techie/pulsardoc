@@ -74,6 +74,37 @@ function findJsDocItems(obj) {
       found.description = obj.description.replace(line, "");
       found.summary = obj.summary.replace(line, "");
     }
+
+    if (line.startsWith("@param")) {
+      let re = new RegExp(/@param\s*(?<type>{[a-zA-Z]+}\s*)?(?<name>[a-zA-Z0-9._\[\]-]+\s*)(-\s+|\s+)?(?<description>.+$)?/);
+
+      let match = re.exec(line);
+
+      let argObj = {};
+
+      if (match.groups.name) {
+        if (match.groups.name.startsWith("[") && match.groups.name.endsWith("]")) {
+          argObj.name = match.groups.name.replace("]", "").replace("[", "");
+          argObj.isOptional = true;
+        } else {
+          argObj.name = match.groups.name;
+          argObj.isOptional = false;
+        }
+      }
+      if (match.groups.description) {
+        argObj.description = match.groups.description;
+      }
+      if (match.groups.type) {
+        argObj.type = match.groups.type.replace("{", "").replace("}", "");
+      }
+
+      if (!Array.isArray(found.arguments)) {
+        found.arguments = [];
+      }
+      found.arguments.push(argObj);
+      found.summary = obj.summary.replace(line, "");
+      found.description = obj.description.replace(line, "");
+    }
   }
 
   return found;

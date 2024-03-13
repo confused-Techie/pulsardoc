@@ -17,11 +17,56 @@ Which had to be used together in somewhat mysterious ways that in the end genera
 
 The goal of `pulsardoc` is to achieve this again, but with some important changes:
 
-- [ ] Ability to generate JSON documentation from single easy function call
+- [X] Ability to generate JSON documentation from single easy function call
 - [ ] Support modern ECMAScript Features
 - [ ] Support either JavaScript or CoffeeScript without issue
-- [ ] Support original Markdown directives
-- [ ] Support JSDoc Directives
+- [X] Support original Markdown directives
+- [X] Support a subset of JSDoc Directives
 
 While Atom's Documentation system was born of a want to document code using Markdown, this one should continue this and expand on it.
 Bringing JSDoc features to the schema these tools expect, so they can continue to be used with existing tool-chains.
+
+## Documentation
+
+### AtomDoc
+
+AtomDoc refers to the syntax of documentation necessary for documenting code as originally intended by the Atom team.
+Which this generator still follows exactly.
+
+
+### JSDoc
+
+JSDoc refers to the JSDoc extension within this generator. While `pulsardoc` doesn't support JSDoc style documentation exactly, it supports JSDoc style declarations.
+
+What this means is that although all documentation must still be placed in single line comments, and **must** begin with an API Status string, you are able to in addition to use declarations in JSDoc style for a subset of items.
+
+When using JSDoc style declarations ensure the following:
+  * Each JSDoc declaration is on it's own line.
+  * It is a single line comment, not a comment block
+  * The value itself is a single line only.
+
+Currently supported items are:
+
+### Name
+
+Maps to the `name` property.
+
+```js
+// @name aNameValue
+```
+
+### Summary
+
+Maps to the `summary` property.
+
+```js
+// @summary A Summary String.
+```
+
+### Description
+
+Maps to the `description` property.
+
+```js
+// @description A Description String.
+```

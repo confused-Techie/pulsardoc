@@ -46,6 +46,7 @@ class Generator {
     }
     this.nodeStack.push(node)
     try {
+      console.log(node);
       switch (node.type) {
         case 'ExportDefaultDeclaration': return this.visitExportDefaultDeclaration(node)
         case 'ExportNamedDeclaration': return this.visitExportNamedDeclaration(node)
@@ -58,6 +59,7 @@ class Generator {
         default: return this.visitNodeWithChildren(node)
       }
     } finally {
+      console.log(`Popping: ${node.type} from the stack`);
       this.nodeStack.pop()
     }
   }

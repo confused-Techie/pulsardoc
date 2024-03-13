@@ -4,6 +4,7 @@ const path = require("path");
 const joanna = require("./joanna.js");
 const tello = require("./tello.js");
 const atomdoc = require("./atomdoc/index.js");
+const jsdoc = require("./consume-js-doc.js");
 
 module.exports =
 class PulsarDoc {
@@ -23,12 +24,15 @@ class PulsarDoc {
   main() {
     let parsed = this.parse();
 
-    fs.writeFileSync("parsed.json", JSON.stringify(parsed, null, 2), { encoding: "utf8" });
+    //fs.writeFileSync("parsed.json", JSON.stringify(parsed, null, 2), { encoding: "utf8" });
 
     let digested = this.digest([parsed]);
 
-    fs.writeFileSync("digested.json", JSON.stringify(digested, null, 2), { encoding: "utf8" });
-    return digested;
+    //fs.writeFileSync("digested.json", JSON.stringify(digested, null, 2), { encoding: "utf8" });
+
+    let jsdocified = this.consumeJSDoc(digested);
+
+    return jsdocified;
   }
 
   // Parse documentation data from Source Files
@@ -105,6 +109,7 @@ class PulsarDoc {
   }
 
   consumeJSDoc(content) {
-    
+    const doc = jsdoc(content);
+    return doc;
   }
 }

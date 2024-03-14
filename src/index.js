@@ -55,9 +55,9 @@ class PulsarDoc {
         for (const entry of fs.readdirSync(absolutePath)) {
           let entryExt = path.parse(entry).ext;
           if (entryExt === ".js") {
-            jsFiles.push(entry);
+            jsFiles.push(path.resolve(entry));
           } else if (entryExt === ".coffee") {
-            coffeeFiles.push(entry);
+            coffeeFiles.push(path.resolve(entry));
           } else if (this.opts.warn_on_unrecognized_file) {
             console.error(`Unrecognized Filetype: ${entry}`);
           }

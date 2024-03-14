@@ -13,7 +13,9 @@ class PulsarDoc {
     this.userOpts = opts;
     this.defaultOpts = {
       warn_on_unrecognized_file: false,
-      write_temp_files: false
+      write_temp_files: false,
+      repository: false,
+      version: false
     };
     this.opts = {
       ...this.defaultOpts,
@@ -55,9 +57,9 @@ class PulsarDoc {
         for (const entry of fs.readdirSync(absolutePath)) {
           let entryExt = path.parse(entry).ext;
           if (entryExt === ".js") {
-            jsFiles.push(path.resolve(entry));
+            jsFiles.push(path.join(this.paths[i], entry));
           } else if (entryExt === ".coffee") {
-            coffeeFiles.push(path.resolve(entry));
+            coffeeFiles.push(path.join(this.paths[i], entry));
           } else if (this.opts.warn_on_unrecognized_file) {
             console.error(`Unrecognized Filetype: ${entry}`);
           }
@@ -81,6 +83,21 @@ class PulsarDoc {
 
     for (let i = 0; i < coffeeFiles.length; i++) {
       parsed.files[coffeeFiles[i]] = this.parseCoffee(coffeeFiles[i]);
+    }
+
+    // add meta if we can find it
+    if (fs.existsSync(path.join(this.paths[0], "../", "package.json"))) {
+      let packJson = JSON.parse(fs.readFileSync(path.join(this.paths[0], "../", "package.json")));
+      parsed.repository = packJson.repository.url;
+      parsed.version = packJson.version;
+    } else {
+      // add meta if provided
+      if (this.opts.repository) {
+        parsed.repository = this.opts.repository;
+      }
+      if (this.opts.version) {
+        parsed.version = this.opts.version;
+      }
     }
 
     return parsed;

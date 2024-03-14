@@ -204,12 +204,12 @@ class Parser {
 
     while (tokens.length) {
       const description = generateDescription(tokens, (token, tokens) => {
-        if (token.type === 'code') return false
+        if (token?.type === 'code') return false
         return this.stopOnSectionBoundaries(token, tokens)
       })
 
       firstToken = tokens[0]
-      if (firstToken.type === 'code') {
+      if (firstToken?.type === 'code') {
         const example = {
           description,
           lang: firstToken.lang,

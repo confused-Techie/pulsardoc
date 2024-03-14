@@ -47,6 +47,55 @@ const docs = new PulsarDoc([ "path/one", "path/two" ], opts).main();
 AtomDoc refers to the syntax of documentation necessary for documenting code as originally intended by the Atom team.
 Which this generator still follows exactly.
 
+The following are a good set of rules to remember when writing AtomDoc:
+  * Each comment block must consist of single line comments only
+  * Each comment block must not have any breaks in it
+  * Each comment block must begin with an API Status Declaration
+
+An example:
+
+```coffee
+AtomDoc = require 'atomdoc'
+
+docString = """
+    Public: My awesome method that does stuff.
+
+    It does things and stuff and even more things, this is the description. The
+    next section is the arguments. They can be nested. Useful for explaining the
+    arguments passed to any callbacks.
+
+    * `count` {Number} representing count
+    * `callback` {Function} that will be called when finished
+      * `options` Options {Object} passed to your callback with the options:
+        * `someOption` A {Bool}
+        * `anotherOption` Another {Bool}
+
+    ## Events
+
+    ### contents-modified
+
+    Public: Fired when this thing happens.
+
+    * `options` {Object} An options hash
+      * `someOption` {Object} An options hash
+
+    ## Examples
+
+    This is an example. It can have a description.
+
+    ```coffee
+    myMethod 20, ({someOption, anotherOption}) ->
+      console.log someOption, anotherOption
+    ```
+
+    Returns null in some cases
+    Returns an {Object} with these keys:
+      * `someBool` a {Boolean}
+      * `someNumber` a {Number}
+"""
+doc = AtomDoc.parse(docString)
+```
+
 
 ### JSDoc
 

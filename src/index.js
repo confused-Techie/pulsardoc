@@ -3,6 +3,7 @@ const path = require("path");
 
 const joanna = require("./joanna.js");
 const tello = require("./tello.js");
+const donna = require("./donna/donna.js");
 const atomdoc = require("./atomdoc/index.js");
 const jsdoc = require("./consume-js-doc.js");
 
@@ -112,9 +113,9 @@ class PulsarDoc {
   }
 
   // Parse documentation data from CoffeeScript files
-  parseCoffee() {
-    console.error("CoffeeScript is not yet supported!");
-    return {};
+  parseCoffee(filePath) {
+    const code = donna({ input: filePath });
+    return code;
   }
 
   // Digest documentation data into final output

@@ -130,7 +130,8 @@ class PulsarDoc {
       const doc = atomdoc.parse(content, opts);
       return doc;
     } catch (err) {
-      console.error(`Error parsing markdown content:`, err);
+      console.error(`Error parsing Markdown content:`, err.message, `(item will be skipped)`);
+
       return "";
     }
   }

@@ -3,7 +3,7 @@ const path = require("path");
 
 const joanna = require("./joanna.js");
 const tello = require("./tello.js");
-//const donna = require("./donna/donna.js");
+const donna = require("./donna/donna.js");
 const atomdoc = require("./atomdoc/index.js");
 const jsdoc = require("./consume-js-doc.js");
 
@@ -108,15 +108,14 @@ class PulsarDoc {
   parseJava(filePath) {
     const file = fs.readFileSync(filePath, { encoding: "utf8" });
     const code = joanna(file);
-
     return code;
   }
 
   // Parse documentation data from CoffeeScript files
   parseCoffee(filePath) {
-    console.log("CoffeeScript is not yet supported!");
-    // const code = donna({ input: filePath });
-    // return code;
+    const code = donna.main({ inputs: [filePath] });
+    let baseName = path.basename(filePath);
+    return code[0].files[baseName];
   }
 
   // Digest documentation data into final output
@@ -127,8 +126,14 @@ class PulsarDoc {
 
   // Consume Markdown content to turn into documentation
   consumeMark(content, opts = {}) {
-    const doc = atomdoc.parse(content, opts);
-    return doc;
+    try {
+      const doc = atomdoc.parse(content, opts);
+      return doc;
+    } catch (err) {
+      console.error(`Error parsing Markdown content:`, err.message, `(item will be skipped)`);
+
+      return "";
+    }
   }
 
   consumeJSDoc(content) {

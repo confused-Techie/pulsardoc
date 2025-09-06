@@ -18,6 +18,12 @@
 const path = require('path');
 const _ = require('underscore');
 
+const EMPTY_CUSTOM_DATA = Object.freeze({})
+// A quick way to tell whether a paragraph might contain a custom data marker.
+const CUSTOM_DATA_SHIBBOLETH = /\n\s*!\(\(/
+// A full regular expression for extracting a custom data key/value pair.
+const CUSTOM_DATA_PATTERN = /(?<=\n\s*)!\(\((.*?)\)\)\s*(?=\n|$)/g
+
 class Digester {
   constructor(opts = {}) {
     this.current = {};
@@ -35,9 +41,7 @@ class Digester {
     const classes = {};
     for (let packageObject of Array.from(metadata)) {
       this.current.package = packageObject;
-      const {
-        files
-      } = packageObject;
+      const { files } = packageObject;
       for (let filename in files) {
         const fileData = files[filename];
         this.current.filename = filename;
@@ -65,8 +69,8 @@ class Digester {
   digestClass(classEntity) {
     const classDoc = this.docFromDocString(classEntity.doc, {parseReturns: false});
     if (!classDoc) { return; }
-
     const sections = this.filterSectionsForRowRange(classEntity.range[0][0], classEntity.range[1][0]);
+
     const classMethods = this.extractEntities(sections, classEntity.classProperties, 'function');
     const instanceMethods = this.extractEntities(sections, classEntity.prototypeProperties, 'function');
     const classProperties = this.extractEntities(sections, classEntity.classProperties, 'primitive');
@@ -83,6 +87,8 @@ class Digester {
       }
     }
 
+    const customData = this.extractCustomData(classEntity, classDoc);
+
     const parsedAttributes = ['visibility', 'summary', 'description', 'events', 'examples'];
 
     return _.extend({
@@ -94,7 +100,8 @@ class Digester {
       classMethods,
       instanceMethods,
       classProperties,
-      instanceProperties
+      instanceProperties,
+      customData
     }, _.pick(classDoc, ...Array.from(parsedAttributes)));
   }
 
@@ -110,6 +117,7 @@ class Digester {
     return _.extend({
       name: entity.name,
       sectionName: this.sectionNameForRow(sections, entityPosition[0]),
+      customData: this.extractCustomData(entity, doc),
       srcUrl: this.linkForRow(entityPosition[0])
     }, _.pick(doc, ...Array.from(parsedAttributes)));
   }
@@ -117,6 +125,50 @@ class Digester {
   /*
   Section: Utils
   */
+
+  // Extract any blocks of the form
+  //
+  // !((Foo: Bar))
+  //
+  // and put them in a `customData` object like
+  //
+  // { "Foo": "Bar" }
+  //
+  // so that they can be used inside of EJS templates for whatever purposes
+  // we like.
+  extractCustomData (entity, parsed) {
+    if (!entity.doc) return EMPTY_CUSTOM_DATA;
+    let { doc } = entity;
+
+    if (!CUSTOM_DATA_SHIBBOLETH.test(doc)) {
+      return EMPTY_CUSTOM_DATA;
+    }
+
+    let custom = {};
+
+    // First we search for instances of this syntax — not to replace the
+    // values, but so that we can build our metadata object.
+    doc.replace(CUSTOM_DATA_PATTERN, (_, whole) => {
+      let key, value = true;
+      let parts = whole.split(/(?<!\\):\s+/)
+      if (parts.length > 1) {
+        let [_key, ...rest] = parts;
+        value = rest.join(': ');
+        key = _key;
+      } else {
+        key = parts[0];
+      }
+      custom[key] = value;
+    });
+
+    if (parsed.description) {
+      // Then we make sure to remove all evidence of these custom data blocks
+      // from human-facing descriptions.
+      parsed.description = parsed.description.replace(CUSTOM_DATA_PATTERN, '');
+    }
+
+    return custom;
+  }
 
   extractEntities(sections, entityPositions, entityType) {
     const entities = [];

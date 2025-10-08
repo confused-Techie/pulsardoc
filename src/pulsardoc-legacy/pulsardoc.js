@@ -85,7 +85,9 @@ class PulsarDoc {
 
     for (let i = 0; i < coffeeFiles.length; i++) {
       console.log(`Parsing CS File: '${coffeeFiles[i]}'`);
-      parsed.files[coffeeFiles[i]] = this.parseCoffee(coffeeFiles[i]);
+      console.log("CoffeeScript is not supported! (again)");
+      // tello doesn't like even the empty coffeescript
+      //parsed.files[coffeeFiles[i]] = this.parseCoffee(coffeeFiles[i]);
     }
 
     // add meta if we can find it

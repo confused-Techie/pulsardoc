@@ -43,6 +43,7 @@ class Digester {
       this.current.package = packageObject;
       const { files } = packageObject;
       for (let filename in files) {
+        console.log(`Tello digesting '${filename}'`);
         const fileData = files[filename];
         this.current.filename = filename;
         this.current.objects = fileData.objects;

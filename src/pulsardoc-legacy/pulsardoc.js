@@ -79,10 +79,12 @@ class PulsarDoc {
     // now to read the lists and parse
 
     for (let i = 0; i < jsFiles.length; i++) {
+      console.log(`Parsing JS File: '${jsFiles[i]}'`);
       parsed.files[jsFiles[i]] = this.parseJava(jsFiles[i]);
     }
 
     for (let i = 0; i < coffeeFiles.length; i++) {
+      console.log(`Parsing CS File: '${coffeeFiles[i]}'`);
       parsed.files[coffeeFiles[i]] = this.parseCoffee(coffeeFiles[i]);
     }
 

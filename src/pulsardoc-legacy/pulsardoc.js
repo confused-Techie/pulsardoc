@@ -115,6 +115,13 @@ class PulsarDoc {
 
   // Parse documentation data from CoffeeScript files
   parseCoffee(filePath) {
+    console.log("CoffeeScript is not supported! (again)");
+    // There may have been a bug or something mysterious.
+    // Current implementation throws error when parsing 'text-buffer/src/default-history-provider.coffee'
+    // Error: BUG: Unsupported require structure: IdentifierLiteral
+    // pulsardoc/src/pulsardoc-legacy/donna/metadata.js:134:5
+    // https://github.com/pulsar-edit/documentation/actions/runs/18330987833/job/52205792661
+    return;
     const code = donna.main({ inputs: [filePath] });
     let baseName = path.basename(filePath);
     return code[0].files[baseName];
